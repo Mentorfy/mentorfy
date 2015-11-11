@@ -1,15 +1,13 @@
 from bottle import Bottle, run
-from bottle.ext.mongo import MongoPlugin
-from bson.json_util import dumps
+from mongoengine import connect
 from config.routes import *
 
 import click
 import os
 
 app = Bottle()
-plugin = MongoPlugin(uri="mongodb://127.0.0.1", db="mentorfy", json_mongo=True)
-app.install(plugin)
 
+connect('mentorfy')
 setup_routes(app)
 
 @click.group()

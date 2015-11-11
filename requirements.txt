@@ -1,4 +1,4 @@
 bottle
 click
 pytest
-bottle_mongo
+mongoengine
