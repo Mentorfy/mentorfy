@@ -1,4 +1,4 @@
 bottle
 click
 pytest
-pymongo
+bottle_mongo

@@ -1,12 +1,14 @@
 from bottle import Bottle, run
+from bottle.ext.mongo import MongoPlugin
+from bson.json_util import dumps
+from config.routes import *
+
 import click
 import os
-# from app.controllers import *
-# from app.models import *
-from config.routes import *
-import config.database
 
 app = Bottle()
+plugin = MongoPlugin(uri="mongodb://127.0.0.1", db="mentorfy", json_mongo=True)
+app.install(plugin)
 
 setup_routes(app)
 
