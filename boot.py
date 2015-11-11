@@ -4,6 +4,7 @@ import os
 # from app.controllers import *
 # from app.models import *
 from config.routes import *
+import config.database
 
 app = Bottle()
 
