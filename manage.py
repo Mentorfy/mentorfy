@@ -1,14 +1,30 @@
-from bottle import Bottle, run
-from mongoengine import connect
-from config.routes import *
-
-import click
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 import os
+import click
+from bottle import static_file, Bottle, run, TEMPLATE_PATH
+from beaker.middleware import SessionMiddleware
 
-app = Bottle()
+from mentorfy import settings
+from mentorfy.routes import Routes
 
-connect('mentorfy')
-setup_routes(app)
+
+TEMPLATE_PATH.insert(0, settings.TEMPLATE_PATH)
+session_opts = {
+    'session.type': 'file',
+    'session.auto': True
+}
+
+app = SessionMiddleware(Bottle(), session_opts)
+
+# Bottle Routes
+app.wrap_app.merge(Routes)
+
+
+@app.wrap_app.route('/assets/<path:path>', name='assets')
+def assets(path):
+    yield static_file(path, root=settings.STATIC_PATH)
+
 
 @click.group()
 def cmds():

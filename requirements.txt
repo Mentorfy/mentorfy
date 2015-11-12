@@ -1,4 +1,6 @@
 bottle
 click
+beaker
+jinja2
 pytest
 mongoengine
